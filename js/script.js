@@ -19,10 +19,13 @@ function addSite() {
       sName:siteName.value,
       sURL:siteURL.value
    };
+  if(site.sName !="" && site.sURL!="")
+   {
    siteList.push(site);
-   localStorage.setItem(storageKey,JSON.stringify(siteList));
+   updateLocalStorage();
    display(siteList) ;
    clearForm();
+   }  
 }
 
 // & clearForm function to clear inputs
@@ -32,11 +35,10 @@ function clearForm( ){
   
 }
 
-
 // & display function to display inputs in html table
 function display(sList) {
    var tableRow="";
-   var current=1;
+   
    for (var i = 0; i < sList.length; i++) {
       tableRow +=
    ` <tr>
@@ -63,7 +65,7 @@ function display(sList) {
 // & deleteSite function to delete row from html table
 function deleteSite(index){
    siteList.splice(index,1);
-   localStorage.setItem(storageKey,JSON.stringify(siteList));
+   updateLocalStorage();
    display(siteList) ;
 }
 
@@ -71,6 +73,16 @@ function deleteSite(index){
 function visitSite(index) {
    window.open(`https://`+siteList[index].sURL);
 }
+
+
+// & update local storage function
+
+function updateLocalStorage() {
+   localStorage.setItem(storageKey,JSON.stringify(siteList));
+}
+
+
+
 
 //? incase we need to update form later
 // function updateForm( siteobj){
